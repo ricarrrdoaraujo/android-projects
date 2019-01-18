@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#5e0085</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="AtmColor">#a835c2</color>
+    <color name="primary_material_dark">#7b1fa2</color>
+    <color name="background_material_light">#ffffff</color>
+    <color name="nav_bar_color">#610089</color>
+</resources>
