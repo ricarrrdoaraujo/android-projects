@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "940477522843",
+    "firebase_url": "https://organizze2-9f47a.firebaseio.com",
+    "project_id": "organizze2-9f47a",
+    "storage_bucket": "organizze2-9f47a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940477522843:android:a051d3be1619c07d",
+        "android_client_info": {
+          "package_name": "com.example.ricar.organizze"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "940477522843-4e9fkeo9udqs5m63jt09uqa1afcl70j6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ2Bf9KU5h9hHjK_sP55_lT9dqLm_Jo9k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
