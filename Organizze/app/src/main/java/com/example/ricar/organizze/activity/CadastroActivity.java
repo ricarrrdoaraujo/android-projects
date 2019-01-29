@@ -87,9 +87,16 @@ public class CadastroActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if( task.isSuccessful() ){
-                    Toast.makeText(CadastroActivity.this,
-                            "Sucesso ao cadastrar usuário!",
-                            Toast.LENGTH_SHORT).show();
+                    /*
+                        Após cadastrar usuário, o método finish remove a activity
+                        cadastro da pilha, voltando para a MainActivity. Na MainActivity
+                        o método onStart é chamado, executando verificarUsuarioLogado(),
+                        que verifica se usuário está logado, se sim, chama o método
+                        abrirTelaPrincipal() que executa PricipalActivity() levando o
+                        usuário para a tela principal
+                    */
+                    finish();
+
                 } else {
 
                     String excecao = "";
