@@ -3,8 +3,6 @@ package com.example.ricar.organizze.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,7 +53,8 @@ public class PrincipalActivity extends AppCompatActivity {
     private Movimentacao movimentacao;
     private DatabaseReference movimentacaoRef;
     private String mesAnoSelecionado;
-
+    //private AnalyticsApplication application = (AnalyticsApplication) getApplication();
+   // private Tracker mTracker = application.getDefaultTracker();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +79,9 @@ public class PrincipalActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapterMovimentacao);
+
+      //  mTracker.setScreenName("PrincipalActivity");
+     //   mTracker.send(new HitBuilders.ScreenViewBuilder().build());
 
     }
 
