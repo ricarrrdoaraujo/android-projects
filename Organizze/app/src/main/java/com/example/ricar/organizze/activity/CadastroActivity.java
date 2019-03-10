@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.ricar.organizze.R;
 import com.example.ricar.organizze.config.ConfiguracaoFirebase;
+import com.example.ricar.organizze.helper.Base64Custom;
 import com.example.ricar.organizze.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,6 +32,8 @@ public class CadastroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
+
+        getSupportActionBar().setTitle("Cadastro");
 
         campoNome = findViewById(R.id.editNome);
         campoEmail = findViewById(R.id.editEmail);
@@ -95,6 +98,10 @@ public class CadastroActivity extends AppCompatActivity {
                         abrirTelaPrincipal() que executa PricipalActivity() levando o
                         usuário para a tela principal
                     */
+
+                    String idUsuario = Base64Custom.codificarBase64(usuario.getEmail());
+                    usuario.setIdUsuario(idUsuario);
+                    usuario.salvar();
                     finish();
 
                 } else {
