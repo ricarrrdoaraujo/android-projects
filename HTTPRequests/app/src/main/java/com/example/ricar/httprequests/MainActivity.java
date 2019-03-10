@@ -3,9 +3,15 @@ package com.example.ricar.httprequests;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.ricar.httprequests.api.CEPService;
+import com.example.ricar.httprequests.api.DataService;
+import com.example.ricar.httprequests.model.CEP;
+import com.example.ricar.httprequests.model.Foto;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,11 +23,21 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button botaoRecuperar;
     private TextView resultado;
+    private Retrofit retrofit;
+    private List<Foto> listaFotos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +46,75 @@ public class MainActivity extends AppCompatActivity {
 
         botaoRecuperar = findViewById(R.id.buttonRecuperar);
         resultado = findViewById(R.id.resultado);
+        retrofit = new Retrofit.Builder()
+                //.baseUrl("https://viacep.com.br/ws/")
+                .baseUrl("https://jsonplaceholder.typicode.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
         botaoRecuperar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyTask task = new MyTask();
+
+                //recuperarCEPRetrofit();
+
+                recuperarListaRetrofit();
+
+               /* MyTask task = new MyTask();
                 String urlApi = "https://blockchain.info/ticker";
                 String cep = "13077009";
                 String urlCep = "https://viacep.com.br/ws/" + cep + "/json/ ";
-                task.execute(urlApi);
+                task.execute(urlApi);*/
+            }
+        });
+    }
+
+    private void recuperarListaRetrofit(){
+
+        DataService service = retrofit.create(DataService.class);
+        Call<List<Foto>> call = service.recuperarFotos();
+
+        call.enqueue(new Callback<List<Foto>>() {
+            @Override
+            public void onResponse(Call<List<Foto>> call, Response<List<Foto>> response) {
+                if(response.isSuccessful()){
+                    listaFotos = response.body();
+
+                    for(int i=0; i < listaFotos.size(); i++){
+                        Foto foto = listaFotos.get(i);
+                        Log.d("resultado", "resultado: " + foto.getId() +
+                        " / " + foto.getTitle());
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Foto>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void recuperarCEPRetrofit(){
+        //Retorna um objeto Call
+        CEPService cepService = retrofit.create(CEPService.class);
+        Call<CEP> call = cepService.recuperarCEP("13077009");
+
+        //cria uma tarefa assíncrona dentro de uma thread para fazer o download das informações
+        call.enqueue(new Callback<CEP>() {
+            @Override
+            public void onResponse(Call<CEP> call, Response<CEP> response) {
+                if(response.isSuccessful()){
+                    CEP cep = response.body();
+                    resultado.setText(cep.getLogradouro() + " / " + cep.getBairro());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CEP> call, Throwable t) {
+
             }
         });
     }
